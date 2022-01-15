@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
-// import Error from 'next/error'
+
+import Error from 'next/error'
+
+import styles from './index.module.css'
 
 // 生成したHooks関数を使う
 import { useGetArticleQuery } from '@/generated/graphql'
@@ -30,19 +33,34 @@ const ArticlePage: NextPage = () => {
     return <p>{error.toString()}</p>
   }
 
-  // if (!data || !data.articles_by_pk) {
-  //   return <Error statusCode={404} />
-  // }
+  if (!data || !data.articles_by_pk) {
+    return <Error statusCode={404} />
+  }
 
-  // const { user, subject, content, publishedAt } = data.articles_by_pk
+  const { user, subject, content, publishedAt } = data.articles_by_pk
+
   // if (!publishedAt) {
   //   return <Error statusCode={404} />
   // }
   // const articleHeaderProps = { user, subject, publishedAt }
 
   return (
-    <div>{JSON.stringify(data)}</div>
+    // <div className={styles.contentContainer}>
+    //   <div>{JSON.stringify(user)}</div>
+    //   <div>{subject}</div>
+    //   <div>{content}</div>
+    // </div>
 
+    <div className={styles.contentContainer}>
+      <h1 className={styles.subject}>{subject}</h1>
+      <div className={styles.userContainer}>
+        <div>
+          <div className={styles.userId}>{user.displayId}</div>
+          <span className={styles.userName}>{user.displayName}</span>
+        </div>
+      </div>
+      <div className={styles.content}>{content}</div>
+    </div>
     //   <>
     //     <SiteHeader />
     //     <div className={styles.contentContainer}>
