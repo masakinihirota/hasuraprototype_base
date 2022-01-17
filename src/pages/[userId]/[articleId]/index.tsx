@@ -5,6 +5,8 @@ import Error from 'next/error'
 
 import styles from './index.module.css'
 
+import { Article } from '@/components/article'
+
 // 生成したHooks関数を使う
 import { useGetArticleQuery } from '@/generated/graphql'
 // import { Article } from '@/components/article'
@@ -62,7 +64,12 @@ const ArticlePage: NextPage = () => {
           <span className={styles.userName}>{user.displayName}</span>
         </div>
       </div>
-      <div className={styles.content}>{content}</div>
+      {/* <div className={styles.content}>{content}</div> */}
+
+      <div className={styles.content}>
+        {/* コンポーネント化して切り出す */}
+        <Article content={content} />
+      </div>
     </div>
     //   <>
     //     <SiteHeader />
